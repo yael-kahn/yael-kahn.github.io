@@ -3,536 +3,574 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Prénom Nom — Designer</title>
+  <title>Yaël Kahn — Designer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet" />
-
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --bg: #f7f6f2;
-      --ink: #1a1915;
-      --muted: #888780;
-      --border: rgba(26,25,21,0.12);
-      --accent: #c9a96e;
-      --white: #ffffff;
+      --red: #c93000;
+      --cyan: #007a6e;
+      --cyan-bright: #00c4b4;
+      --cream: #f2ead8;
+      --black: #100f0c;
     }
-
     html { scroll-behavior: smooth; }
-
     body {
-      background: var(--bg);
-      color: var(--ink);
+      background: var(--red);
+      color: var(--cream);
       font-family: 'DM Sans', sans-serif;
       font-weight: 300;
-      font-size: 15px;
-      line-height: 1.75;
       overflow-x: hidden;
-    }
-
-    /* ── CURSOR ── */
-    .cursor {
-      width: 8px; height: 8px;
-      background: var(--accent);
-      border-radius: 50%;
-      position: fixed;
-      pointer-events: none;
-      z-index: 9999;
-      transition: transform 0.15s ease, opacity 0.15s ease;
-    }
-    .cursor-ring {
-      width: 32px; height: 32px;
-      border: 1px solid var(--accent);
-      border-radius: 50%;
-      position: fixed;
-      pointer-events: none;
-      z-index: 9998;
-      transition: transform 0.3s ease, opacity 0.3s ease;
-      opacity: 0.5;
-    }
-
-    /* ── NAV ── */
-    nav {
-      position: fixed; top: 0; left: 0; width: 100%;
-      padding: 1.5rem 3rem;
-      display: flex; justify-content: space-between; align-items: center;
-      z-index: 100;
-      mix-blend-mode: multiply;
-    }
-    .nav-logo {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.15rem;
-      font-weight: 300;
-      letter-spacing: 0.08em;
-      text-decoration: none;
-      color: var(--ink);
-    }
-    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
-    .nav-links a {
-      text-decoration: none;
-      color: var(--muted);
-      font-size: 0.8rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      transition: color 0.2s;
-    }
-    .nav-links a:hover { color: var(--ink); }
-
-    /* ── HERO ── */
-    #hero {
-      min-height: 100vh;
-      display: flex; align-items: flex-end;
-      padding: 0 3rem 5rem;
-    }
-    .hero-inner { max-width: 900px; }
-    .hero-label {
-      font-size: 0.75rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 1.5rem;
-      opacity: 0;
-      animation: fadeUp 0.8s 0.2s forwards;
-    }
-    .hero-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(3.5rem, 8vw, 7rem);
-      font-weight: 300;
-      line-height: 1.05;
-      letter-spacing: -0.01em;
-      color: var(--ink);
-      opacity: 0;
-      animation: fadeUp 0.9s 0.4s forwards;
-    }
-    .hero-title em {
-      font-style: italic;
-      color: var(--accent);
-    }
-    .hero-sub {
-      margin-top: 2rem;
-      max-width: 480px;
-      color: var(--muted);
-      font-size: 0.95rem;
-      opacity: 0;
-      animation: fadeUp 0.9s 0.7s forwards;
-    }
-    .hero-scroll {
-      margin-top: 3rem;
-      display: flex; align-items: center; gap: 1rem;
-      font-size: 0.75rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--muted);
-      opacity: 0;
-      animation: fadeUp 0.9s 1s forwards;
-    }
-    .hero-scroll-line {
-      width: 40px; height: 1px;
-      background: var(--muted);
-      animation: expandLine 1s 1.3s both;
-    }
-    @keyframes expandLine {
-      from { width: 0; }
-      to { width: 40px; }
-    }
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* ── SECTION SHARED ── */
-    section { padding: 7rem 3rem; }
-    .section-label {
-      font-size: 0.7rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 3rem;
-    }
-
-    /* ── ABOUT ── */
-    #about { border-top: 1px solid var(--border); }
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1.4fr;
-      gap: 5rem;
-      align-items: start;
-    }
-    .about-name {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2.5rem;
-      font-weight: 300;
-      line-height: 1.2;
-    }
-    .about-role {
-      margin-top: 0.5rem;
-      color: var(--muted);
-      font-size: 0.85rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-    .about-skills {
-      margin-top: 2.5rem;
-      display: flex; flex-wrap: wrap; gap: 0.5rem;
-    }
-    .skill-tag {
-      border: 1px solid var(--border);
-      padding: 0.3rem 0.85rem;
-      font-size: 0.75rem;
-      letter-spacing: 0.08em;
-      color: var(--muted);
-      border-radius: 999px;
-    }
-    .about-bio {
-      color: var(--ink);
-      font-size: 1.05rem;
-      line-height: 1.9;
-    }
-    .about-bio p + p { margin-top: 1.2rem; }
-
-    /* ── WORK ── */
-    #work { border-top: 1px solid var(--border); background: var(--white); }
-    .work-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2px;
-    }
-    .project-card {
-      position: relative;
-      aspect-ratio: 4/3;
-      overflow: hidden;
       cursor: none;
     }
-    .project-card:hover .project-img {
-      transform: scale(1.04);
-    }
-    .project-card:hover .project-overlay {
-      opacity: 1;
-    }
-    .project-img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      display: block;
-      background: #e8e6df;
-    }
-    /* Placeholder coloré quand pas d'image */
-    .project-img.placeholder {
-      display: flex; align-items: center; justify-content: center;
-    }
-    .project-img.p1 { background: #dbd5c8; }
-    .project-img.p2 { background: #c8ccd5; }
-    .project-img.p3 { background: #c8d5ce; }
-    .project-img.p4 { background: #d5c8c8; }
-    .project-overlay {
-      position: absolute; inset: 0;
-      background: rgba(26,25,21,0.7);
-      display: flex; flex-direction: column;
-      justify-content: flex-end;
-      padding: 2rem;
-      opacity: 0;
-      transition: opacity 0.35s ease;
-    }
-    .project-year {
-      font-size: 0.7rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 0.4rem;
-    }
-    .project-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.6rem;
-      font-weight: 300;
-      color: var(--white);
-      line-height: 1.2;
-    }
-    .project-type {
-      margin-top: 0.4rem;
-      color: rgba(255,255,255,0.55);
-      font-size: 0.78rem;
-      letter-spacing: 0.08em;
+
+    /* GRAIN */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      opacity: 0.07;
+      pointer-events: none;
+      z-index: 9990;
+      mix-blend-mode: overlay;
     }
 
-    /* ── PROCESS ── */
-    #process { border-top: 1px solid var(--border); }
-    .process-steps {
+    /* CURSOR */
+    #cur {
+      width: 14px; height: 14px;
+      border: 2px solid var(--cream);
+      border-radius: 50%;
+      position: fixed; pointer-events: none; z-index: 9999;
+      transition: transform 0.2s cubic-bezier(0.25,0.46,0.45,0.94), background 0.2s;
+    }
+    #cur.big { transform: scale(4) !important; background: var(--cyan-bright); border-color: var(--cyan-bright); opacity: 0.5; }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 3rem;
-      margin-top: 1rem;
+      grid-template-rows: auto 1fr auto;
+      padding: 2rem 2.8rem;
+      position: relative;
+      overflow: hidden;
     }
-    .step-num {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 3rem;
-      font-weight: 300;
-      color: var(--border);
-      line-height: 1;
-      margin-bottom: 1rem;
+    #hero::after {
+      content: '';
+      position: absolute;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      border: 80px solid rgba(0,196,180,0.08);
+      right: -120px; top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+      box-shadow: 0 0 0 40px rgba(0,196,180,0.04), 0 0 0 80px rgba(0,196,180,0.02);
     }
-    .step-title {
-      font-size: 0.85rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      margin-bottom: 0.8rem;
+    .hero-top {
+      display: flex; justify-content: space-between;
+      font-family: 'Syne', sans-serif;
+      font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; opacity: 0.6;
     }
-    .step-desc { color: var(--muted); font-size: 0.9rem; line-height: 1.7; }
+    .hero-tagline {
+      max-width: 240px; font-size: 0.95rem; line-height: 1.7; opacity: 0.8; margin-top: 1.5rem; font-style: italic;
+    }
+    .hero-right-text {
+      text-align: right;
+      font-family: 'Syne', sans-serif; font-size: 0.9rem; line-height: 2;
+      color: var(--cyan-bright);
+      position: absolute; right: 2.8rem; top: 32%;
+    }
+    .hero-center {
+      display: flex; align-items: center; justify-content: flex-start;
+      padding: 1rem 0; position: relative; z-index: 2;
+    }
+    .big-type {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(130px, 24vw, 240px);
+      line-height: 0.85; letter-spacing: 0.01em;
+      animation: appear 1.1s cubic-bezier(0.16,1,0.3,1) both;
+    }
+    .big-type .stroke { -webkit-text-stroke: 2px var(--cream); color: transparent; }
+    .big-type .accent { color: var(--cyan-bright); }
+    @keyframes appear {
+      from { opacity: 0; transform: translateY(40px) skewY(3deg); }
+      to   { opacity: 1; transform: none; }
+    }
+    .hero-by {
+      font-family: 'Syne', sans-serif; font-size: 0.82rem;
+      letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.55; margin-top: 1.4rem;
+      animation: fadeUp 1s 0.6s both;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 0.55; transform: none; }
+    }
+    .hero-bottom { display: flex; justify-content: space-between; align-items: flex-end; position: relative; z-index: 2; }
+    .hero-contact { font-size: 0.78rem; line-height: 2; opacity: 0.6; }
+    .hero-disciplines { text-align: right; font-family: 'Syne', sans-serif; font-size: 0.78rem; line-height: 2; font-weight: 700; }
 
-    /* ── CONTACT ── */
+    /* NAV */
+    nav {
+      background: var(--black); color: var(--cream);
+      padding: 1.1rem 2.8rem;
+      display: flex; justify-content: space-between; align-items: center;
+      position: sticky; top: 0; z-index: 100;
+      border-bottom: 1px solid rgba(0,196,180,0.15);
+    }
+    .nav-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; letter-spacing: 0.08em; }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      text-decoration: none; color: rgba(242,234,216,0.4);
+      font-family: 'Syne', sans-serif; font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--cyan-bright); }
+
+    /* SECTIONS */
+    section { padding: 6rem 2.8rem; }
+    .s-label {
+      font-family: 'Syne', sans-serif; font-size: 0.65rem;
+      letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: 3rem; color: var(--cyan);
+    }
+
+    /* AFFICHES */
+    #affiches {
+      background: var(--cream); color: var(--black); position: relative; overflow: hidden;
+    }
+    #affiches::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: repeating-linear-gradient(-45deg, transparent, transparent 20px, rgba(0,0,0,0.025) 20px, rgba(0,0,0,0.025) 21px);
+      pointer-events: none;
+    }
+    #affiches .s-label { color: var(--red); }
+
+    .affiches-intro {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      margin-bottom: 3rem; position: relative; z-index: 1;
+    }
+    .affiches-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3rem, 7vw, 6rem);
+      line-height: 0.9; letter-spacing: 0.02em; color: var(--black);
+    }
+    .affiches-title span { color: var(--red); }
+    .affiches-desc {
+      max-width: 300px; font-size: 0.88rem; line-height: 1.7;
+      color: rgba(0,0,0,0.55); text-align: right;
+    }
+
+    /* Grille affiches : portrait masonry-like */
+    .affiches-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      position: relative; z-index: 1;
+    }
+    .affiche-card {
+      position: relative; overflow: hidden; cursor: none;
+      background: #ddd;
+    }
+    .affiche-card:nth-child(1) { grid-row: span 2; }
+    .affiche-card:nth-child(4) { grid-row: span 2; }
+
+    .affiche-card img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+      transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94);
+    }
+    .affiche-card:hover img { transform: scale(1.05); }
+    .affiche-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(201,48,0,0.85) 0%, transparent 50%);
+      opacity: 0; transition: opacity 0.35s;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 1.5rem;
+    }
+    .affiche-card:hover .affiche-overlay { opacity: 1; }
+    .affiche-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem; letter-spacing: 0.04em; color: var(--cream); line-height: 1;
+    }
+    .affiche-type {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--cyan-bright); margin-top: 0.3rem;
+    }
+
+    /* TEXTILES */
+    #textiles {
+      background: var(--black); color: var(--cream);
+      position: relative; overflow: hidden;
+    }
+    #textiles::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: radial-gradient(circle, rgba(0,196,180,0.08) 1px, transparent 1px);
+      background-size: 28px 28px;
+      pointer-events: none;
+    }
+    #textiles .s-label { color: var(--cyan-bright); }
+
+    .textiles-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+      position: relative; z-index: 1;
+    }
+    .textiles-left {}
+    .textiles-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      line-height: 0.9; letter-spacing: 0.02em;
+    }
+    .textiles-title span { color: var(--cyan-bright); }
+    .textiles-desc {
+      margin-top: 1.5rem;
+      font-size: 0.92rem; line-height: 1.85;
+      color: rgba(242,234,216,0.6);
+      max-width: 380px;
+    }
+    .textiles-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
+    .tag {
+      border: 1px solid rgba(0,196,180,0.3);
+      padding: 0.3rem 0.85rem;
+      font-family: 'Syne', sans-serif;
+      font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--cyan-bright); border-radius: 2px;
+    }
+    .textiles-image {
+      position: relative;
+    }
+    .textiles-image img {
+      width: 100%; display: block;
+      transition: transform 0.6s ease;
+    }
+    .textiles-image:hover img { transform: scale(1.02); }
+    /* Cadre décoratif */
+    .textiles-image::before {
+      content: '';
+      position: absolute;
+      inset: -12px;
+      border: 1px solid rgba(0,196,180,0.2);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    /* ABOUT */
+    #about {
+      background: var(--red); color: var(--cream);
+      position: relative; overflow: hidden;
+    }
+    #about::after {
+      content: '';
+      position: absolute;
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      background: rgba(0,196,180,0.06);
+      right: -100px; bottom: -100px;
+      pointer-events: none;
+    }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1.6fr;
+      gap: 5rem; align-items: start; position: relative; z-index: 1;
+    }
+    .about-big {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      line-height: 0.9; letter-spacing: 0.03em;
+    }
+    .about-big .line2 { color: var(--cyan-bright); }
+    .about-role {
+      font-family: 'Syne', sans-serif; font-size: 0.72rem;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: rgba(242,234,216,0.5); margin-top: 1rem;
+    }
+    .about-skills { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 2rem; }
+    .skill {
+      border: 1px solid rgba(242,234,216,0.2);
+      padding: 0.32rem 0.85rem;
+      font-family: 'Syne', sans-serif; font-size: 0.68rem;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: rgba(242,234,216,0.6); border-radius: 2px;
+    }
+    .about-bio { font-size: 1rem; line-height: 1.95; color: rgba(242,234,216,0.7); }
+    .about-bio p + p { margin-top: 1.5rem; }
+
+    /* CONTACT */
     #contact {
-      border-top: 1px solid var(--border);
-      background: var(--ink); color: var(--white);
-      text-align: center;
+      background: var(--cyan); color: var(--cream);
+      position: relative; overflow: hidden;
     }
-    .contact-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2.5rem, 5vw, 4.5rem);
-      font-weight: 300;
-      line-height: 1.1;
-      margin-bottom: 2rem;
+    #contact::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      opacity: 0.06; pointer-events: none; mix-blend-mode: overlay;
     }
-    .contact-title em { font-style: italic; color: var(--accent); }
-    .contact-sub {
-      color: rgba(255,255,255,0.45);
-      font-size: 0.9rem;
-      margin-bottom: 3rem;
+    #contact::after {
+      content: '';
+      position: absolute; width: 500px; height: 500px;
+      border-radius: 50%; background: var(--red); opacity: 0.15;
+      right: -100px; bottom: -150px; pointer-events: none;
     }
-    .contact-links {
-      display: flex; justify-content: center;
-      gap: 2rem; flex-wrap: wrap;
+    .contact-inner {
+      display: flex; flex-direction: column; gap: 2.5rem;
+      position: relative; z-index: 1;
     }
+    .contact-big {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3.5rem, 10vw, 9rem);
+      line-height: 0.85; letter-spacing: 0.02em;
+    }
+    .contact-big .alt { color: var(--red); }
+    .contact-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
     .contact-link {
-      text-decoration: none;
-      color: var(--white);
-      font-size: 0.78rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      border-bottom: 1px solid rgba(255,255,255,0.25);
-      padding-bottom: 2px;
-      transition: border-color 0.2s, color 0.2s;
+      text-decoration: none; color: var(--cream);
+      font-family: 'Syne', sans-serif; font-size: 0.72rem;
+      letter-spacing: 0.18em; text-transform: uppercase; font-weight: 700;
+      border: 1px solid rgba(242,234,216,0.3);
+      padding: 0.6rem 1.4rem; border-radius: 2px;
+      transition: background 0.2s, border-color 0.2s;
     }
-    .contact-link:hover { color: var(--accent); border-color: var(--accent); }
+    .contact-link:hover { background: var(--red); border-color: var(--red); }
 
     footer {
-      background: var(--ink);
-      padding: 1.5rem 3rem;
-      border-top: 1px solid rgba(255,255,255,0.08);
-      display: flex; justify-content: space-between; align-items: center;
+      background: var(--black); color: rgba(242,234,216,0.25);
+      padding: 1.4rem 2.8rem;
+      display: flex; justify-content: space-between;
+      font-family: 'Syne', sans-serif; font-size: 0.68rem; letter-spacing: 0.1em;
     }
-    footer p { font-size: 0.75rem; color: rgba(255,255,255,0.3); }
 
-    /* ── SCROLL REVEAL ── */
-    .reveal {
-      opacity: 0; transform: translateY(30px);
-      transition: opacity 0.75s ease, transform 0.75s ease;
-    }
+    /* REVEAL */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.75s ease, transform 0.75s ease; }
     .reveal.visible { opacity: 1; transform: none; }
 
-    /* ── RESPONSIVE ── */
-    @media (max-width: 768px) {
-      nav { padding: 1.2rem 1.5rem; }
-      .nav-links { display: none; }
-      #hero, section { padding-left: 1.5rem; padding-right: 1.5rem; }
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .affiches-grid { grid-template-columns: repeat(2, 1fr); }
+      .affiche-card:nth-child(1), .affiche-card:nth-child(4) { grid-row: span 1; }
+      .textiles-layout { grid-template-columns: 1fr; gap: 2.5rem; }
       .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-      .work-grid { grid-template-columns: 1fr; }
-      footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+    @media (max-width: 600px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      section, #hero { padding: 4rem 1.5rem; }
+      .hero-right-text { display: none; }
+      .affiches-intro { flex-direction: column; gap: 1rem; }
+      .affiches-desc { text-align: left; }
+      .affiches-grid { grid-template-columns: 1fr 1fr; }
     }
   </style>
 </head>
 <body>
 
-  <div class="cursor" id="cursor"></div>
-  <div class="cursor-ring" id="cursorRing"></div>
-
-  <!-- NAV -->
-  <nav>
-    <a href="#hero" class="nav-logo">Prénom Nom</a>
-    <ul class="nav-links">
-      <li><a href="#work">Projets</a></li>
-      <li><a href="#about">À propos</a></li>
-      <li><a href="#process">Approche</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
+  <div id="cur"></div>
 
   <!-- HERO -->
   <section id="hero">
-    <div class="hero-inner">
-      <p class="hero-label">Designer créatif · Paris, FR</p>
-      <h1 class="hero-title">
-        Je crée des<br />
-        expériences <em>visuelles</em><br />
-        qui font sens.
-      </h1>
-      <p class="hero-sub">
-        Identité visuelle, direction artistique et design d'interface — 
-        au croisement de la forme et du sens.
-      </p>
-      <div class="hero-scroll">
-        <span class="hero-scroll-line"></span>
-        Découvrir
+    <div class="hero-top">
+      <span>Selected works</span>
+      <span>2026</span>
+    </div>
+    <div class="hero-tagline reveal">Every project tells a story — blending creativity, clarity, and purpose.</div>
+    <div class="hero-right-text reveal">visual<br />storytelling<br />that speaks<br />loudly</div>
+    <div class="hero-center">
+      <div>
+        <div class="big-type">port<br /><span class="stroke">f<span class="accent">o</span>lio</span></div>
+        <p class="hero-by">by Yaël Kahn</p>
+      </div>
+    </div>
+    <div class="hero-bottom">
+      <div class="hero-contact reveal">
+        +33 7 69 40 42 12<br />yael.kahn@gmail.com
+      </div>
+      <div class="hero-disciplines reveal">
+        Branding &amp; Identity<br />
+        Editorial &amp; Layout design<br />
+        Illustration &amp; Concept art
       </div>
     </div>
   </section>
 
-  <!-- WORK -->
-  <section id="work">
-    <p class="section-label reveal">Sélection de projets</p>
-    <div class="work-grid">
+  <!-- NAV -->
+  <nav>
+    <span class="nav-name">Yaël Kahn</span>
+    <ul class="nav-links">
+      <li><a href="#affiches">Affiches</a></li>
+      <li><a href="#textiles">Textiles</a></li>
+      <li><a href="#about">À propos</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
 
-      <div class="project-card reveal">
-        <div class="project-img placeholder p1"></div>
-        <div class="project-overlay">
-          <p class="project-year">2024</p>
-          <h3 class="project-title">Nom du Projet</h3>
-          <p class="project-type">Identité visuelle</p>
+  <!-- AFFICHES -->
+  <section id="affiches">
+    <p class="s-label reveal">Projet 01 — Communication visuelle</p>
+    <div class="affiches-intro reveal">
+      <h2 class="affiches-title">Affiches<br /><span>&amp; Visuels</span></h2>
+      <p class="affiches-desc">Une sélection d'affiches conçues pour des événements sportifs, culturels et associatifs. Chaque visuel raconte une histoire en un coup d'œil.</p>
+    </div>
+    <div class="affiches-grid">
+
+      <div class="affiche-card reveal">
+        <img src="images/affiches/affiche_ns_futsal.png" alt="Futsal NS" />
+        <div class="affiche-overlay">
+          <p class="affiche-name">Futsal NS</p>
+          <p class="affiche-type">Affiche sportive</p>
         </div>
       </div>
 
-      <div class="project-card reveal">
-        <div class="project-img placeholder p2"></div>
-        <div class="project-overlay">
-          <p class="project-year">2024</p>
-          <h3 class="project-title">Nom du Projet</h3>
-          <p class="project-type">Direction artistique</p>
+      <div class="affiche-card reveal">
+        <img src="images/affiches/affiche_ns_dodgeball.png" alt="Dodgeball NS" />
+        <div class="affiche-overlay">
+          <p class="affiche-name">Dodgeball NS</p>
+          <p class="affiche-type">Affiche sportive</p>
         </div>
       </div>
 
-      <div class="project-card reveal">
-        <div class="project-img placeholder p3"></div>
-        <div class="project-overlay">
-          <p class="project-year">2023</p>
-          <h3 class="project-title">Nom du Projet</h3>
-          <p class="project-type">Design d'interface</p>
+      <div class="affiche-card reveal">
+        <img src="images/affiches/affiche_ns_volley.png" alt="Volley NS" />
+        <div class="affiche-overlay">
+          <p class="affiche-name">Volley NS</p>
+          <p class="affiche-type">Affiche sportive</p>
         </div>
       </div>
 
-      <div class="project-card reveal">
-        <div class="project-img placeholder p4"></div>
-        <div class="project-overlay">
-          <p class="project-year">2023</p>
-          <h3 class="project-title">Nom du Projet</h3>
-          <p class="project-type">Typographie &amp; édition</p>
+      <div class="affiche-card reveal">
+        <img src="images/affiches/affiche_NS_badminton.png" alt="Badminton NS" />
+        <div class="affiche-overlay">
+          <p class="affiche-name">Badminton NS</p>
+          <p class="affiche-type">Affiche sportive</p>
         </div>
       </div>
 
+      <div class="affiche-card reveal">
+        <img src="images/affiches/affiche_ns_volley_2.png" alt="Volley NS vol.2" />
+        <div class="affiche-overlay">
+          <p class="affiche-name">Volley NS vol.2</p>
+          <p class="affiche-type">Affiche sportive</p>
+        </div>
+      </div>
+
+      <div class="affiche-card reveal">
+        <img src="images/affiches/affiche_bee4.png" alt="Bee4" />
+        <div class="affiche-overlay">
+          <p class="affiche-name">Bee4</p>
+          <p class="affiche-type">Affiche événementielle</p>
+        </div>
+      </div>
+
+      <div class="affiche-card reveal">
+        <img src="images/affiches/Affiche_MadaKfé.png" alt="MadaKfé" />
+        <div class="affiche-overlay">
+          <p class="affiche-name">MadaKfé</p>
+          <p class="affiche-type">Identité &amp; affiche</p>
+        </div>
+      </div>
+
+      <div class="affiche-card reveal">
+        <img src="images/affiches/affiche_expo.png" alt="Expo" />
+        <div class="affiche-overlay">
+          <p class="affiche-name">Exposition</p>
+          <p class="affiche-type">Affiche culturelle</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- TEXTILES -->
+  <section id="textiles">
+    <p class="s-label reveal">Projet 02 — Design textile</p>
+    <div class="textiles-layout">
+      <div class="textiles-left reveal">
+        <h2 class="textiles-title">Design<br /><span>Textile</span></h2>
+        <p class="textiles-desc">
+          Conception de visuels appliqués sur des supports textiles — du brief initial au fichier de production. Une approche qui mêle identité graphique forte et contraintes techniques du vêtement.
+        </p>
+        <div class="textiles-tags">
+          <span class="tag">Sérigraphie</span>
+          <span class="tag">Broderie</span>
+          <span class="tag">Identité visuelle</span>
+          <span class="tag">Direction artistique</span>
+        </div>
+      </div>
+      <div class="textiles-image reveal">
+        <img src="images/textiles/textile_pull_AS.png" alt="Pull AS — Design textile" />
+      </div>
     </div>
   </section>
 
   <!-- ABOUT -->
   <section id="about">
-    <p class="section-label reveal">À propos</p>
+    <p class="s-label reveal">À propos</p>
     <div class="about-grid">
       <div class="reveal">
-        <h2 class="about-name">Prénom<br />Nom</h2>
-        <p class="about-role">Designer &amp; directeur artistique</p>
+        <h2 class="about-big">Yaël<br /><span class="line2">Kahn</span></h2>
+        <p class="about-role">Designer &amp; Directrice artistique</p>
         <div class="about-skills">
-          <span class="skill-tag">Figma</span>
-          <span class="skill-tag">Illustrator</span>
-          <span class="skill-tag">Photoshop</span>
-          <span class="skill-tag">InDesign</span>
-          <span class="skill-tag">After Effects</span>
-          <span class="skill-tag">HTML / CSS</span>
+          <span class="skill">Figma</span>
+          <span class="skill">Illustrator</span>
+          <span class="skill">Photoshop</span>
+          <span class="skill">InDesign</span>
+          <span class="skill">After Effects</span>
+          <span class="skill">HTML / CSS</span>
         </div>
       </div>
       <div class="about-bio reveal">
         <p>
-          Designer avec X ans d'expérience, je travaille avec des marques, 
-          agences et studios pour concevoir des identités visuelles mémorables 
-          et des expériences cohérentes.
+          Designer créative basée à Paris, je façonne des identités visuelles qui marquent les esprits. Curieuse et rigoureuse, je navigue entre typographie, couleur et composition pour donner du sens à chaque projet.
         </p>
         <p>
-          Mon approche mêle rigueur conceptuelle et attention aux détails — 
-          de la stratégie de marque à la réalisation finale. 
-          Je crois que le bon design est invisible : il guide, il émeut, 
-          il reste.
+          Formée aux arts appliqués, j'interviens aussi bien sur des supports print que digitaux — de l'affiche événementielle au design textile, en passant par la direction artistique de campagnes visuelles.
         </p>
         <p>
-          Disponible pour des missions freelance et collaborations. 
-          N'hésitez pas à me contacter.
+          Disponible pour des missions freelance et collaborations. N'hésitez pas à me contacter.
         </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- PROCESS -->
-  <section id="process">
-    <p class="section-label reveal">Mon approche</p>
-    <div class="process-steps">
-      <div class="reveal">
-        <p class="step-num">01</p>
-        <h3 class="step-title">Écouter</h3>
-        <p class="step-desc">Comprendre le contexte, les enjeux et les utilisateurs avant de poser le moindre trait.</p>
-      </div>
-      <div class="reveal">
-        <p class="step-num">02</p>
-        <h3 class="step-title">Conceptualiser</h3>
-        <p class="step-desc">Développer des directions créatives ancrées dans une réflexion stratégique solide.</p>
-      </div>
-      <div class="reveal">
-        <p class="step-num">03</p>
-        <h3 class="step-title">Raffiner</h3>
-        <p class="step-desc">Itérer avec précision jusqu'à atteindre l'équilibre juste entre forme et fonction.</p>
-      </div>
-      <div class="reveal">
-        <p class="step-num">04</p>
-        <h3 class="step-title">Livrer</h3>
-        <p class="step-desc">Délivrer des fichiers irréprochables, accompagnés d'une documentation claire.</p>
       </div>
     </div>
   </section>
 
   <!-- CONTACT -->
   <section id="contact">
-    <p class="section-label" style="color:rgba(255,255,255,0.3)">Contact</p>
-    <h2 class="contact-title reveal">Travaillons<br /><em>ensemble</em></h2>
-    <p class="contact-sub reveal">Ouvert aux missions freelance et projets collaboratifs.</p>
-    <div class="contact-links reveal">
-      <a href="mailto:hello@tonsite.fr" class="contact-link">Email</a>
-      <a href="https://linkedin.com/in/tonprofil" class="contact-link" target="_blank">LinkedIn</a>
-      <a href="https://behance.net/tonprofil" class="contact-link" target="_blank">Behance</a>
-      <a href="https://instagram.com/tonprofil" class="contact-link" target="_blank">Instagram</a>
+    <div class="contact-inner">
+      <h2 class="contact-big reveal">Travaillons<br /><span class="alt">ensemble</span></h2>
+      <div class="contact-links reveal">
+        <a href="mailto:yael.kahn@gmail.com" class="contact-link">Email</a>
+        <a href="https://linkedin.com/in/yaelkahn" class="contact-link" target="_blank">LinkedIn</a>
+        <a href="https://behance.net/yaelkahn" class="contact-link" target="_blank">Behance</a>
+        <a href="https://instagram.com/yaelkahn" class="contact-link" target="_blank">Instagram</a>
+      </div>
     </div>
   </section>
 
   <footer>
-    <p>© 2025 Prénom Nom</p>
-    <p>Conçu &amp; développé maison.</p>
+    <span>© 2026 Yaël Kahn</span>
+    <span>Designed &amp; coded by hand.</span>
   </footer>
 
   <script>
-    // Cursor personnalisé
-    const cursor = document.getElementById('cursor');
-    const ring = document.getElementById('cursorRing');
-    let mx = 0, my = 0, rx = 0, ry = 0;
-    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
-    (function loop() {
-      rx += (mx - rx) * 0.18;
-      ry += (my - ry) * 0.18;
-      cursor.style.transform = `translate(${mx - 4}px, ${my - 4}px)`;
-      ring.style.transform = `translate(${rx - 16}px, ${ry - 16}px)`;
-      requestAnimationFrame(loop);
-    })();
-
-    // Scroll reveal
-    const reveals = document.querySelectorAll('.reveal');
-    const obs = new IntersectionObserver((entries) => {
+    const cur = document.getElementById('cur');
+    document.addEventListener('mousemove', e => {
+      cur.style.transform = `translate(${e.clientX - 7}px, ${e.clientY - 7}px)`;
+    });
+    document.querySelectorAll('a, .affiche-card').forEach(el => {
+      el.addEventListener('mouseenter', () => cur.classList.add('big'));
+      el.addEventListener('mouseleave', () => cur.classList.remove('big'));
+    });
+    const obs = new IntersectionObserver(entries => {
       entries.forEach((e, i) => {
         if (e.isIntersecting) {
           setTimeout(() => e.target.classList.add('visible'), i * 80);
           obs.unobserve(e.target);
         }
       });
-    }, { threshold: 0.12 });
-    reveals.forEach(el => obs.observe(el));
-
-    // Nav scroll style
-    const nav = document.querySelector('nav');
-    window.addEventListener('scroll', () => {
-      nav.style.backdropFilter = window.scrollY > 50 ? 'blur(12px)' : '';
-    });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
   </script>
 </body>
 </html>
