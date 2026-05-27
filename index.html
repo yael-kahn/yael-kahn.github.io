@@ -3,366 +3,281 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Yaël Kahn — Designer</title>
+  <title>Yaël Kahn — Designer & Illustratrice</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Sans:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
+      --white: #ffffff;
+      --off: #f9f8f6;
+      --ink: #1c1b18;
+      --muted: #9a9690;
       --red: #c93000;
-      --cyan: #007a6e;
-      --cyan-bright: #00c4b4;
-      --cream: #f2ead8;
-      --black: #100f0c;
+      --border: #e8e5df;
     }
     html { scroll-behavior: smooth; }
     body {
-      background: var(--red);
-      color: var(--cream);
+      background: var(--white);
+      color: var(--ink);
       font-family: 'DM Sans', sans-serif;
       font-weight: 300;
+      font-size: 14px;
       overflow-x: hidden;
       cursor: none;
     }
 
-    /* GRAIN */
-    body::before {
-      content: '';
-      position: fixed; inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-      opacity: 0.07;
-      pointer-events: none;
-      z-index: 9990;
-      mix-blend-mode: overlay;
-    }
-
     /* CURSOR */
     #cur {
-      width: 14px; height: 14px;
-      border: 2px solid var(--cream);
+      width: 10px; height: 10px;
+      background: var(--ink);
       border-radius: 50%;
       position: fixed; pointer-events: none; z-index: 9999;
-      transition: transform 0.2s cubic-bezier(0.25,0.46,0.45,0.94), background 0.2s;
+      transition: transform 0.2s ease, background 0.2s;
     }
-    #cur.big { transform: scale(4) !important; background: var(--cyan-bright); border-color: var(--cyan-bright); opacity: 0.5; }
-
-    /* HERO */
-    #hero {
-      min-height: 100vh;
-      display: grid;
-      grid-template-rows: auto 1fr auto;
-      padding: 2rem 2.8rem;
-      position: relative;
-      overflow: hidden;
+    #cur.hover {
+      transform: scale(3.5) !important;
+      background: var(--red);
+      opacity: 0.35;
     }
-    #hero::after {
-      content: '';
-      position: absolute;
-      width: 600px; height: 600px;
-      border-radius: 50%;
-      border: 80px solid rgba(0,196,180,0.08);
-      right: -120px; top: 50%;
-      transform: translateY(-50%);
-      pointer-events: none;
-      box-shadow: 0 0 0 40px rgba(0,196,180,0.04), 0 0 0 80px rgba(0,196,180,0.02);
-    }
-    .hero-top {
-      display: flex; justify-content: space-between;
-      font-family: 'Syne', sans-serif;
-      font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; opacity: 0.6;
-    }
-    .hero-tagline {
-      max-width: 240px; font-size: 0.95rem; line-height: 1.7; opacity: 0.8; margin-top: 1.5rem; font-style: italic;
-    }
-    .hero-right-text {
-      text-align: right;
-      font-family: 'Syne', sans-serif; font-size: 0.9rem; line-height: 2;
-      color: var(--cyan-bright);
-      position: absolute; right: 2.8rem; top: 32%;
-    }
-    .hero-center {
-      display: flex; align-items: center; justify-content: flex-start;
-      padding: 1rem 0; position: relative; z-index: 2;
-    }
-    .big-type {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(130px, 24vw, 240px);
-      line-height: 0.85; letter-spacing: 0.01em;
-      animation: appear 1.1s cubic-bezier(0.16,1,0.3,1) both;
-    }
-    .big-type .stroke { -webkit-text-stroke: 2px var(--cream); color: transparent; }
-    .big-type .accent { color: var(--cyan-bright); }
-    @keyframes appear {
-      from { opacity: 0; transform: translateY(40px) skewY(3deg); }
-      to   { opacity: 1; transform: none; }
-    }
-    .hero-by {
-      font-family: 'Syne', sans-serif; font-size: 0.82rem;
-      letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.55; margin-top: 1.4rem;
-      animation: fadeUp 1s 0.6s both;
-    }
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(10px); }
-      to   { opacity: 0.55; transform: none; }
-    }
-    .hero-bottom { display: flex; justify-content: space-between; align-items: flex-end; position: relative; z-index: 2; }
-    .hero-contact { font-size: 0.78rem; line-height: 2; opacity: 0.6; }
-    .hero-disciplines { text-align: right; font-family: 'Syne', sans-serif; font-size: 0.78rem; line-height: 2; font-weight: 700; }
 
     /* NAV */
     nav {
-      background: var(--black); color: var(--cream);
-      padding: 1.1rem 2.8rem;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 1.4rem 3rem;
       display: flex; justify-content: space-between; align-items: center;
-      position: sticky; top: 0; z-index: 100;
-      border-bottom: 1px solid rgba(0,196,180,0.15);
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.3s;
     }
-    .nav-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; letter-spacing: 0.08em; }
+    nav.scrolled { border-color: var(--border); }
+    .nav-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem; font-weight: 400; letter-spacing: 0.02em;
+      color: var(--ink); text-decoration: none;
+    }
     .nav-links { display: flex; gap: 2.5rem; list-style: none; }
     .nav-links a {
-      text-decoration: none; color: rgba(242,234,216,0.4);
-      font-family: 'Syne', sans-serif; font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase;
+      text-decoration: none; color: var(--muted);
+      font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase;
       transition: color 0.2s;
     }
-    .nav-links a:hover { color: var(--cyan-bright); }
+    .nav-links a:hover { color: var(--ink); }
 
-    /* SECTIONS */
-    section { padding: 6rem 2.8rem; }
-    .s-label {
-      font-family: 'Syne', sans-serif; font-size: 0.65rem;
-      letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: 3rem; color: var(--cyan);
+    /* HERO */
+    #hero {
+      padding: 10rem 3rem 5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: end;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-left {}
+    .hero-label {
+      font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 1.5rem;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 5vw, 4.2rem);
+      font-weight: 400; line-height: 1.1;
+    }
+    .hero-title em { font-style: italic; color: var(--red); }
+    .hero-right {
+      padding-bottom: 0.5rem;
+    }
+    .hero-bio {
+      font-size: 0.95rem; line-height: 1.85; color: var(--muted);
+      max-width: 380px;
+    }
+    .hero-disciplines {
+      margin-top: 2rem;
+      display: flex; flex-direction: column; gap: 0.4rem;
+    }
+    .discipline {
+      font-size: 0.78rem; letter-spacing: 0.08em;
+      color: var(--ink); display: flex; align-items: center; gap: 0.8rem;
+    }
+    .discipline::before {
+      content: '';
+      width: 20px; height: 1px; background: var(--red); flex-shrink: 0;
+    }
+
+    /* SECTION LABEL */
+    .section-label {
+      font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 2.5rem;
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .section-label::after {
+      content: ''; flex: 1; height: 1px; background: var(--border);
     }
 
     /* AFFICHES */
-    #affiches {
-      background: var(--cream); color: var(--black); position: relative; overflow: hidden;
-    }
-    #affiches::before {
-      content: '';
-      position: absolute; inset: 0;
-      background-image: repeating-linear-gradient(-45deg, transparent, transparent 20px, rgba(0,0,0,0.025) 20px, rgba(0,0,0,0.025) 21px);
-      pointer-events: none;
-    }
-    #affiches .s-label { color: var(--red); }
+    #affiches { padding: 5rem 3rem; }
 
-    .affiches-intro {
-      display: flex; justify-content: space-between; align-items: flex-end;
-      margin-bottom: 3rem; position: relative; z-index: 1;
-    }
-    .affiches-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(3rem, 7vw, 6rem);
-      line-height: 0.9; letter-spacing: 0.02em; color: var(--black);
-    }
-    .affiches-title span { color: var(--red); }
-    .affiches-desc {
-      max-width: 300px; font-size: 0.88rem; line-height: 1.7;
-      color: rgba(0,0,0,0.55); text-align: right;
-    }
-
-    /* Grille affiches : portrait masonry-like */
+    /* Grille masonry-like avec images à ratio naturel */
     .affiches-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 1rem;
-      position: relative; z-index: 1;
+      gap: 1.2rem;
+      align-items: start;
     }
-    .affiche-card {
-      position: relative; overflow: hidden; cursor: none;
-      background: #ddd;
-    }
-    .affiche-card:nth-child(1) { grid-row: span 2; }
-    .affiche-card:nth-child(4) { grid-row: span 2; }
 
-    .affiche-card img {
-      width: 100%; height: 100%;
-      object-fit: cover; display: block;
-      transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94);
+    .affiche-item {
+      cursor: none; position: relative; overflow: hidden;
+      background: var(--off);
     }
-    .affiche-card:hover img { transform: scale(1.05); }
-    .affiche-overlay {
-      position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(201,48,0,0.85) 0%, transparent 50%);
-      opacity: 0; transition: opacity 0.35s;
-      display: flex; flex-direction: column; justify-content: flex-end;
-      padding: 1.5rem;
+    .affiche-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94), filter 0.4s;
+      filter: saturate(0.95);
     }
-    .affiche-card:hover .affiche-overlay { opacity: 1; }
-    .affiche-name {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.4rem; letter-spacing: 0.04em; color: var(--cream); line-height: 1;
+    .affiche-item:hover img {
+      transform: scale(1.03);
+      filter: saturate(1.05);
     }
-    .affiche-type {
-      font-family: 'Syne', sans-serif;
-      font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase;
-      color: var(--cyan-bright); margin-top: 0.3rem;
+    .affiche-caption {
+      padding: 0.8rem 0 0.2rem;
     }
+    .affiche-caption h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.9rem; font-weight: 400;
+      color: var(--ink);
+    }
+    .affiche-caption p {
+      font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--muted); margin-top: 0.2rem;
+    }
+
+    /* Disposition variée pour casser la grille */
+    .affiche-item:nth-child(3) { grid-column: span 2; }
+    .affiche-item:nth-child(6) { grid-column: span 2; }
+
+    /* DIVIDER */
+    .divider { height: 1px; background: var(--border); margin: 0 3rem; }
 
     /* TEXTILES */
-    #textiles {
-      background: var(--black); color: var(--cream);
-      position: relative; overflow: hidden;
-    }
-    #textiles::before {
-      content: '';
-      position: absolute; inset: 0;
-      background-image: radial-gradient(circle, rgba(0,196,180,0.08) 1px, transparent 1px);
-      background-size: 28px 28px;
-      pointer-events: none;
-    }
-    #textiles .s-label { color: var(--cyan-bright); }
+    #textiles { padding: 5rem 3rem; background: var(--off); }
 
     .textiles-layout {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 5rem;
-      align-items: center;
-      position: relative; z-index: 1;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 6rem; align-items: center;
     }
-    .textiles-left {}
-    .textiles-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(3rem, 6vw, 5.5rem);
-      line-height: 0.9; letter-spacing: 0.02em;
-    }
-    .textiles-title span { color: var(--cyan-bright); }
-    .textiles-desc {
-      margin-top: 1.5rem;
-      font-size: 0.92rem; line-height: 1.85;
-      color: rgba(242,234,216,0.6);
-      max-width: 380px;
-    }
-    .textiles-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
-    .tag {
-      border: 1px solid rgba(0,196,180,0.3);
-      padding: 0.3rem 0.85rem;
-      font-family: 'Syne', sans-serif;
-      font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase;
-      color: var(--cyan-bright); border-radius: 2px;
-    }
-    .textiles-image {
-      position: relative;
-    }
-    .textiles-image img {
-      width: 100%; display: block;
-      transition: transform 0.6s ease;
-    }
-    .textiles-image:hover img { transform: scale(1.02); }
-    /* Cadre décoratif */
-    .textiles-image::before {
+    .textiles-img { position: relative; }
+    .textiles-img img { width: 100%; height: auto; display: block; }
+
+    /* Cadre décalé */
+    .textiles-img::after {
       content: '';
       position: absolute;
-      inset: -12px;
-      border: 1px solid rgba(0,196,180,0.2);
-      pointer-events: none;
-      z-index: 2;
+      top: 16px; left: 16px; right: -16px; bottom: -16px;
+      border: 1px solid var(--border);
+      z-index: -1;
+    }
+
+    .textiles-info {}
+    .textiles-num {
+      font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--red); margin-bottom: 1.5rem;
+    }
+    .textiles-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 4vw, 3.5rem);
+      font-weight: 400; line-height: 1.1;
+    }
+    .textiles-title em { font-style: italic; color: var(--red); }
+    .textiles-desc {
+      margin-top: 1.5rem;
+      font-size: 0.9rem; line-height: 1.85; color: var(--muted);
+    }
+    .textiles-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.8rem; }
+    .tag {
+      border: 1px solid var(--border);
+      padding: 0.28rem 0.8rem;
+      font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--muted);
     }
 
     /* ABOUT */
-    #about {
-      background: var(--red); color: var(--cream);
-      position: relative; overflow: hidden;
+    #about { padding: 5rem 3rem; }
+    .about-layout {
+      display: grid; grid-template-columns: 1fr 2fr;
+      gap: 6rem; align-items: start;
     }
-    #about::after {
-      content: '';
-      position: absolute;
-      width: 400px; height: 400px;
-      border-radius: 50%;
-      background: rgba(0,196,180,0.06);
-      right: -100px; bottom: -100px;
-      pointer-events: none;
+    .about-left {}
+    .about-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem; font-weight: 400; line-height: 1.1;
     }
-    .about-grid {
-      display: grid; grid-template-columns: 1fr 1.6fr;
-      gap: 5rem; align-items: start; position: relative; z-index: 1;
-    }
-    .about-big {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(3rem, 6vw, 5.5rem);
-      line-height: 0.9; letter-spacing: 0.03em;
-    }
-    .about-big .line2 { color: var(--cyan-bright); }
+    .about-name em { font-style: italic; color: var(--red); }
     .about-role {
-      font-family: 'Syne', sans-serif; font-size: 0.72rem;
-      letter-spacing: 0.18em; text-transform: uppercase;
-      color: rgba(242,234,216,0.5); margin-top: 1rem;
+      font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--muted); margin-top: 0.6rem;
     }
-    .about-skills { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 2rem; }
-    .skill {
-      border: 1px solid rgba(242,234,216,0.2);
-      padding: 0.32rem 0.85rem;
-      font-family: 'Syne', sans-serif; font-size: 0.68rem;
-      letter-spacing: 0.1em; text-transform: uppercase;
-      color: rgba(242,234,216,0.6); border-radius: 2px;
+    .about-skills { margin-top: 2rem; display: flex; flex-direction: column; gap: 0; }
+    .skill-line {
+      font-size: 0.78rem; padding: 0.6rem 0;
+      border-bottom: 1px solid var(--border);
+      color: var(--ink); display: flex; justify-content: space-between;
     }
-    .about-bio { font-size: 1rem; line-height: 1.95; color: rgba(242,234,216,0.7); }
-    .about-bio p + p { margin-top: 1.5rem; }
+    .skill-line span { color: var(--muted); font-size: 0.65rem; }
 
-    /* CONTACT */
-    #contact {
-      background: var(--cyan); color: var(--cream);
-      position: relative; overflow: hidden;
+    .about-right {}
+    .about-bio { font-size: 1rem; line-height: 1.95; color: var(--muted); }
+    .about-bio p + p { margin-top: 1.4rem; }
+    .about-contact {
+      margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid var(--border);
+      display: flex; gap: 1.5rem; flex-wrap: wrap;
     }
-    #contact::before {
-      content: '';
-      position: absolute; inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-      opacity: 0.06; pointer-events: none; mix-blend-mode: overlay;
+    .about-contact a {
+      text-decoration: none; color: var(--ink);
+      font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+      border-bottom: 1px solid var(--ink);
+      padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s;
     }
-    #contact::after {
-      content: '';
-      position: absolute; width: 500px; height: 500px;
-      border-radius: 50%; background: var(--red); opacity: 0.15;
-      right: -100px; bottom: -150px; pointer-events: none;
-    }
-    .contact-inner {
-      display: flex; flex-direction: column; gap: 2.5rem;
-      position: relative; z-index: 1;
-    }
-    .contact-big {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(3.5rem, 10vw, 9rem);
-      line-height: 0.85; letter-spacing: 0.02em;
-    }
-    .contact-big .alt { color: var(--red); }
-    .contact-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
-    .contact-link {
-      text-decoration: none; color: var(--cream);
-      font-family: 'Syne', sans-serif; font-size: 0.72rem;
-      letter-spacing: 0.18em; text-transform: uppercase; font-weight: 700;
-      border: 1px solid rgba(242,234,216,0.3);
-      padding: 0.6rem 1.4rem; border-radius: 2px;
-      transition: background 0.2s, border-color 0.2s;
-    }
-    .contact-link:hover { background: var(--red); border-color: var(--red); }
+    .about-contact a:hover { color: var(--red); border-color: var(--red); }
 
+    /* FOOTER */
     footer {
-      background: var(--black); color: rgba(242,234,216,0.25);
-      padding: 1.4rem 2.8rem;
-      display: flex; justify-content: space-between;
-      font-family: 'Syne', sans-serif; font-size: 0.68rem; letter-spacing: 0.1em;
+      background: var(--ink); color: rgba(255,255,255,0.3);
+      padding: 2rem 3rem;
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 0.72rem; letter-spacing: 0.08em;
     }
+    footer a {
+      color: rgba(255,255,255,0.3); text-decoration: none;
+      transition: color 0.2s;
+    }
+    footer a:hover { color: rgba(255,255,255,0.7); }
+    .footer-links { display: flex; gap: 1.5rem; }
 
     /* REVEAL */
-    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.75s ease, transform 0.75s ease; }
+    .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.8s ease, transform 0.8s ease; }
     .reveal.visible { opacity: 1; transform: none; }
 
     /* RESPONSIVE */
     @media (max-width: 900px) {
+      #hero { grid-template-columns: 1fr; padding-top: 8rem; }
       .affiches-grid { grid-template-columns: repeat(2, 1fr); }
-      .affiche-card:nth-child(1), .affiche-card:nth-child(4) { grid-row: span 1; }
-      .textiles-layout { grid-template-columns: 1fr; gap: 2.5rem; }
-      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .affiche-item:nth-child(3),
+      .affiche-item:nth-child(6) { grid-column: span 1; }
+      .textiles-layout { grid-template-columns: 1fr; gap: 3rem; }
+      .about-layout { grid-template-columns: 1fr; gap: 3rem; }
     }
     @media (max-width: 600px) {
-      nav { padding: 1rem 1.5rem; }
+      nav { padding: 1.2rem 1.5rem; }
       .nav-links { display: none; }
-      section, #hero { padding: 4rem 1.5rem; }
-      .hero-right-text { display: none; }
-      .affiches-intro { flex-direction: column; gap: 1rem; }
-      .affiches-desc { text-align: left; }
-      .affiches-grid { grid-template-columns: 1fr 1fr; }
+      #hero, #affiches, #textiles, #about { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .divider { margin: 0 1.5rem; }
+      footer { padding: 1.5rem; flex-direction: column; gap: 1rem; text-align: center; }
     }
   </style>
 </head>
@@ -370,206 +285,206 @@
 
   <div id="cur"></div>
 
-  <!-- HERO -->
-  <section id="hero">
-    <div class="hero-top">
-      <span>Selected works</span>
-      <span>2026</span>
-    </div>
-    <div class="hero-tagline reveal">Every project tells a story — blending creativity, clarity, and purpose.</div>
-    <div class="hero-right-text reveal">visual<br />storytelling<br />that speaks<br />loudly</div>
-    <div class="hero-center">
-      <div>
-        <div class="big-type">port<br /><span class="stroke">f<span class="accent">o</span>lio</span></div>
-        <p class="hero-by">by Yaël Kahn</p>
-      </div>
-    </div>
-    <div class="hero-bottom">
-      <div class="hero-contact reveal">
-        +33 7 69 40 42 12<br />yael.kahn@gmail.com
-      </div>
-      <div class="hero-disciplines reveal">
-        Branding &amp; Identity<br />
-        Editorial &amp; Layout design<br />
-        Illustration &amp; Concept art
-      </div>
-    </div>
-  </section>
-
   <!-- NAV -->
-  <nav>
-    <span class="nav-name">Yaël Kahn</span>
+  <nav id="nav">
+    <a href="#hero" class="nav-name">Yaël Kahn</a>
     <ul class="nav-links">
       <li><a href="#affiches">Affiches</a></li>
       <li><a href="#textiles">Textiles</a></li>
       <li><a href="#about">À propos</a></li>
-      <li><a href="#contact">Contact</a></li>
     </ul>
   </nav>
 
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-left reveal">
+      <p class="hero-label">Designer &amp; Directrice artistique — Paris</p>
+      <h1 class="hero-title">
+        Yaël Kahn<br />
+        <em>crée des visuels</em><br />
+        qui restent.
+      </h1>
+    </div>
+    <div class="hero-right reveal">
+      <p class="hero-bio">
+        Designer créative basée à Paris, je façonne des identités visuelles, affiches et supports print qui donnent du caractère à chaque projet.
+      </p>
+      <div class="hero-disciplines">
+        <div class="discipline">Branding &amp; Identité visuelle</div>
+        <div class="discipline">Affiches &amp; Communication</div>
+        <div class="discipline">Design textile</div>
+        <div class="discipline">Direction artistique</div>
+      </div>
+    </div>
+  </section>
+
   <!-- AFFICHES -->
   <section id="affiches">
-    <p class="s-label reveal">Projet 01 — Communication visuelle</p>
-    <div class="affiches-intro reveal">
-      <h2 class="affiches-title">Affiches<br /><span>&amp; Visuels</span></h2>
-      <p class="affiches-desc">Une sélection d'affiches conçues pour des événements sportifs, culturels et associatifs. Chaque visuel raconte une histoire en un coup d'œil.</p>
-    </div>
+    <p class="section-label reveal">Affiches &amp; Visuels</p>
     <div class="affiches-grid">
 
-      <div class="affiche-card reveal">
+      <div class="affiche-item reveal">
         <img src="images/affiches/affiche_ns_futsal.png" alt="Futsal NS" />
-        <div class="affiche-overlay">
-          <p class="affiche-name">Futsal NS</p>
-          <p class="affiche-type">Affiche sportive</p>
+        <div class="affiche-caption">
+          <h3>Futsal NS</h3>
+          <p>Affiche sportive</p>
         </div>
       </div>
 
-      <div class="affiche-card reveal">
+      <div class="affiche-item reveal">
         <img src="images/affiches/affiche_ns_dodgeball.png" alt="Dodgeball NS" />
-        <div class="affiche-overlay">
-          <p class="affiche-name">Dodgeball NS</p>
-          <p class="affiche-type">Affiche sportive</p>
+        <div class="affiche-caption">
+          <h3>Dodgeball NS</h3>
+          <p>Affiche sportive</p>
         </div>
       </div>
 
-      <div class="affiche-card reveal">
-        <img src="images/affiches/affiche_ns_volley.png" alt="Volley NS" />
-        <div class="affiche-overlay">
-          <p class="affiche-name">Volley NS</p>
-          <p class="affiche-type">Affiche sportive</p>
-        </div>
-      </div>
-
-      <div class="affiche-card reveal">
-        <img src="images/affiches/affiche_NS_badminton.png" alt="Badminton NS" />
-        <div class="affiche-overlay">
-          <p class="affiche-name">Badminton NS</p>
-          <p class="affiche-type">Affiche sportive</p>
-        </div>
-      </div>
-
-      <div class="affiche-card reveal">
-        <img src="images/affiches/affiche_ns_volley_2.png" alt="Volley NS vol.2" />
-        <div class="affiche-overlay">
-          <p class="affiche-name">Volley NS vol.2</p>
-          <p class="affiche-type">Affiche sportive</p>
-        </div>
-      </div>
-
-      <div class="affiche-card reveal">
-        <img src="images/affiches/affiche_bee4.png" alt="Bee4" />
-        <div class="affiche-overlay">
-          <p class="affiche-name">Bee4</p>
-          <p class="affiche-type">Affiche événementielle</p>
-        </div>
-      </div>
-
-      <div class="affiche-card reveal">
+      <div class="affiche-item reveal">
         <img src="images/affiches/Affiche_MadaKfé.png" alt="MadaKfé" />
-        <div class="affiche-overlay">
-          <p class="affiche-name">MadaKfé</p>
-          <p class="affiche-type">Identité &amp; affiche</p>
+        <div class="affiche-caption">
+          <h3>MadaKfé</h3>
+          <p>Identité &amp; affiche</p>
         </div>
       </div>
 
-      <div class="affiche-card reveal">
-        <img src="images/affiches/affiche_expo.png" alt="Expo" />
-        <div class="affiche-overlay">
-          <p class="affiche-name">Exposition</p>
-          <p class="affiche-type">Affiche culturelle</p>
+      <div class="affiche-item reveal">
+        <img src="images/affiches/affiche_ns_volley.png" alt="Volley NS" />
+        <div class="affiche-caption">
+          <h3>Volley NS</h3>
+          <p>Affiche sportive</p>
+        </div>
+      </div>
+
+      <div class="affiche-item reveal">
+        <img src="images/affiches/affiche_NS_badminton.png" alt="Badminton NS" />
+        <div class="affiche-caption">
+          <h3>Badminton NS</h3>
+          <p>Affiche sportive</p>
+        </div>
+      </div>
+
+      <div class="affiche-item reveal">
+        <img src="images/affiches/affiche_bee4.png" alt="Bee4" />
+        <div class="affiche-caption">
+          <h3>Bee4</h3>
+          <p>Affiche événementielle</p>
+        </div>
+      </div>
+
+      <div class="affiche-item reveal">
+        <img src="images/affiches/affiche_ns_volley_2.png" alt="Volley NS vol.2" />
+        <div class="affiche-caption">
+          <h3>Volley NS vol.2</h3>
+          <p>Affiche sportive</p>
+        </div>
+      </div>
+
+      <div class="affiche-item reveal">
+        <img src="images/affiches/affiche_expo.png" alt="Exposition" />
+        <div class="affiche-caption">
+          <h3>Exposition</h3>
+          <p>Affiche culturelle</p>
         </div>
       </div>
 
     </div>
   </section>
+
+  <div class="divider"></div>
 
   <!-- TEXTILES -->
   <section id="textiles">
-    <p class="s-label reveal">Projet 02 — Design textile</p>
+    <p class="section-label reveal">Design Textile</p>
     <div class="textiles-layout">
-      <div class="textiles-left reveal">
-        <h2 class="textiles-title">Design<br /><span>Textile</span></h2>
+      <div class="textiles-img reveal">
+        <img src="images/textiles/textile_pull_AS.png" alt="Pull AS" />
+      </div>
+      <div class="textiles-info reveal">
+        <p class="textiles-num">Projet 02 — Textile</p>
+        <h2 class="textiles-title">Pull AS —<br /><em>Design textile</em></h2>
         <p class="textiles-desc">
-          Conception de visuels appliqués sur des supports textiles — du brief initial au fichier de production. Une approche qui mêle identité graphique forte et contraintes techniques du vêtement.
+          Conception d'un visuel pour un pull associatif, du brief initial au fichier de production. Une approche qui mêle identité graphique forte et contraintes techniques du vêtement.
         </p>
         <div class="textiles-tags">
           <span class="tag">Sérigraphie</span>
-          <span class="tag">Broderie</span>
-          <span class="tag">Identité visuelle</span>
+          <span class="tag">Identité</span>
           <span class="tag">Direction artistique</span>
+          <span class="tag">Print</span>
         </div>
-      </div>
-      <div class="textiles-image reveal">
-        <img src="images/textiles/textile_pull_AS.png" alt="Pull AS — Design textile" />
       </div>
     </div>
   </section>
+
+  <div class="divider"></div>
 
   <!-- ABOUT -->
   <section id="about">
-    <p class="s-label reveal">À propos</p>
-    <div class="about-grid">
-      <div class="reveal">
-        <h2 class="about-big">Yaël<br /><span class="line2">Kahn</span></h2>
-        <p class="about-role">Designer &amp; Directrice artistique</p>
+    <p class="section-label reveal">À propos</p>
+    <div class="about-layout">
+      <div class="about-left reveal">
+        <h2 class="about-name">Yaël<br /><em>Kahn</em></h2>
+        <p class="about-role">Designer — DA — Paris</p>
         <div class="about-skills">
-          <span class="skill">Figma</span>
-          <span class="skill">Illustrator</span>
-          <span class="skill">Photoshop</span>
-          <span class="skill">InDesign</span>
-          <span class="skill">After Effects</span>
-          <span class="skill">HTML / CSS</span>
+          <div class="skill-line">Figma <span>UI/UX</span></div>
+          <div class="skill-line">Illustrator <span>Vecteur</span></div>
+          <div class="skill-line">Photoshop <span>Retouche</span></div>
+          <div class="skill-line">InDesign <span>Édition</span></div>
+          <div class="skill-line">After Effects <span>Motion</span></div>
+          <div class="skill-line">HTML / CSS <span>Web</span></div>
         </div>
       </div>
-      <div class="about-bio reveal">
-        <p>
-          Designer créative basée à Paris, je façonne des identités visuelles qui marquent les esprits. Curieuse et rigoureuse, je navigue entre typographie, couleur et composition pour donner du sens à chaque projet.
-        </p>
-        <p>
-          Formée aux arts appliqués, j'interviens aussi bien sur des supports print que digitaux — de l'affiche événementielle au design textile, en passant par la direction artistique de campagnes visuelles.
-        </p>
-        <p>
-          Disponible pour des missions freelance et collaborations. N'hésitez pas à me contacter.
-        </p>
+      <div class="about-right reveal">
+        <div class="about-bio">
+          <p>Designer créative basée à Paris, je façonne des identités visuelles qui marquent les esprits. Curieuse et rigoureuse, je navigue entre typographie, couleur et composition pour donner du sens à chaque projet.</p>
+          <p>Formée aux arts appliqués, j'interviens aussi bien sur des supports print que digitaux — de l'affiche événementielle au design textile, en passant par la direction artistique de campagnes visuelles.</p>
+          <p>Disponible pour des missions freelance et collaborations.</p>
+        </div>
+        <div class="about-contact">
+          <a href="mailto:yael.kahn@gmail.com">Email</a>
+          <a href="https://linkedin.com/in/yaelkahn" target="_blank">LinkedIn</a>
+          <a href="https://behance.net/yaelkahn" target="_blank">Behance</a>
+          <a href="https://instagram.com/yaelkahn" target="_blank">Instagram</a>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- CONTACT -->
-  <section id="contact">
-    <div class="contact-inner">
-      <h2 class="contact-big reveal">Travaillons<br /><span class="alt">ensemble</span></h2>
-      <div class="contact-links reveal">
-        <a href="mailto:yael.kahn@gmail.com" class="contact-link">Email</a>
-        <a href="https://linkedin.com/in/yaelkahn" class="contact-link" target="_blank">LinkedIn</a>
-        <a href="https://behance.net/yaelkahn" class="contact-link" target="_blank">Behance</a>
-        <a href="https://instagram.com/yaelkahn" class="contact-link" target="_blank">Instagram</a>
-      </div>
-    </div>
-  </section>
-
+  <!-- FOOTER -->
   <footer>
     <span>© 2026 Yaël Kahn</span>
-    <span>Designed &amp; coded by hand.</span>
+    <div class="footer-links">
+      <a href="mailto:yael.kahn@gmail.com">yael.kahn@gmail.com</a>
+      <a href="https://instagram.com/yaelkahn" target="_blank">Instagram</a>
+      <a href="https://behance.net/yaelkahn" target="_blank">Behance</a>
+    </div>
   </footer>
 
   <script>
+    // Cursor
     const cur = document.getElementById('cur');
     document.addEventListener('mousemove', e => {
-      cur.style.transform = `translate(${e.clientX - 7}px, ${e.clientY - 7}px)`;
+      cur.style.transform = `translate(${e.clientX - 5}px, ${e.clientY - 5}px)`;
     });
-    document.querySelectorAll('a, .affiche-card').forEach(el => {
-      el.addEventListener('mouseenter', () => cur.classList.add('big'));
-      el.addEventListener('mouseleave', () => cur.classList.remove('big'));
+    document.querySelectorAll('a, .affiche-item, .textiles-img').forEach(el => {
+      el.addEventListener('mouseenter', () => cur.classList.add('hover'));
+      el.addEventListener('mouseleave', () => cur.classList.remove('hover'));
     });
+
+    // Nav scroll
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+    });
+
+    // Reveal
     const obs = new IntersectionObserver(entries => {
       entries.forEach((e, i) => {
         if (e.isIntersecting) {
-          setTimeout(() => e.target.classList.add('visible'), i * 80);
+          setTimeout(() => e.target.classList.add('visible'), i * 70);
           obs.unobserve(e.target);
         }
       });
-    }, { threshold: 0.1 });
+    }, { threshold: 0.08 });
     document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
   </script>
 </body>
